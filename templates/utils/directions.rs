@@ -51,8 +51,8 @@ impl Add<Direction> for (usize, usize) {
 
         // wrapping_add to avoid panics
         (
-            self.0.wrapping_add(dx as usize),
-            self.1.wrapping_add(dy as usize),
+            self.0.wrapping_add_signed(dx),
+            self.1.wrapping_add_signed(dy),
         )
     }
 }
@@ -70,6 +70,7 @@ impl From<char> for Direction {
 }
 
 impl Direction {
+    #[must_use]
     pub fn x_delta(&self) -> isize {
         match self {
             Direction::Up | Direction::Down => 0,
@@ -78,6 +79,7 @@ impl Direction {
         }
     }
 
+    #[must_use]
     pub fn y_delta(&self) -> isize {
         match self {
             Direction::Up | Direction::UpLeft | Direction::UpRight => -1,
@@ -86,6 +88,15 @@ impl Direction {
         }
     }
 
+    /// Creates a direction from two points.
+    ///
+    /// # Errors
+    ///
+    /// Returns `DirectionError::InvalidDirection` if the two points are the same.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the normalized direction delta is not one of the 8 cardinal directions.
     pub fn from_points(
         from: (isize, isize),
         to: (isize, isize),
@@ -111,6 +122,12 @@ impl Direction {
         }
     }
 
+    /// Turns the direction 90 degrees clockwise.
+    ///
+    /// # Panics
+    ///
+    /// Panics if called on a diagonal direction (`UpLeft`, `UpRight`, `DownLeft`, `DownRight`).
+    #[must_use]
     pub fn turn_clockwise(&self) -> Direction {
         match self {
             Direction::Up => Direction::Right,
@@ -121,6 +138,12 @@ impl Direction {
         }
     }
 
+    /// Turns the direction 90 degrees counterclockwise.
+    ///
+    /// # Panics
+    ///
+    /// Panics if called on a diagonal direction (`UpLeft`, `UpRight`, `DownLeft`, `DownRight`).
+    #[must_use]
     pub fn turn_counterclockwise(&self) -> Direction {
         match self {
             Direction::Up => Direction::Left,
@@ -131,6 +154,7 @@ impl Direction {
         }
     }
 
+    #[must_use]
     pub fn move_forward(&self, pos: (usize, usize)) -> Option<(usize, usize)> {
         match self {
             Direction::Up => Some((pos.0, pos.1.checked_sub(1)?)),

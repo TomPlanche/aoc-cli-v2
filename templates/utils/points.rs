@@ -23,7 +23,7 @@ impl Number for f32 {}
 impl Number for f64 {}
 impl Number for usize {}
 
-#[derive(Debug, Clone, Copy, Hash)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub struct Point<T: Number> {
     pub x: T,
     pub y: T,
@@ -120,22 +120,14 @@ where
 
         let x = parts[0]
             .parse()
-            .map_err(|e| format!("Failed to parse x coordinate: {:?}", e))?;
+            .map_err(|e| format!("Failed to parse x coordinate: {e:?}"))?;
         let y = parts[1]
             .parse()
-            .map_err(|e| format!("Failed to parse y coordinate: {:?}", e))?;
+            .map_err(|e| format!("Failed to parse y coordinate: {e:?}"))?;
 
         Ok(Point { x, y })
     }
 }
-
-impl<T: Number> PartialEq for Point<T> {
-    fn eq(&self, other: &Self) -> bool {
-        self.x == other.x && self.y == other.y
-    }
-}
-
-impl<T: Number> Eq for Point<T> {}
 
 #[cfg(test)]
 mod tests {
@@ -148,10 +140,10 @@ mod tests {
         assert_eq!(p.y, 2);
 
         // Test with different numeric types
-        let p_f32 = Point::new(1.0f32, 2.0f32);
-        let p_i64 = Point::new(1i64, 2i64);
-        assert_eq!(p_f32.x, 1.0f32);
-        assert_eq!(p_i64.x, 1i64);
+        let p_float = Point::new(1.0f32, 2.0f32);
+        let p_int64 = Point::new(1i64, 2i64);
+        assert!((p_float.x - 1.0f32).abs() < f32::EPSILON);
+        assert_eq!(p_int64.x, 1i64);
     }
 
     #[test]
@@ -193,10 +185,10 @@ mod tests {
     #[test]
     fn test_point_display() {
         let p = Point::new(1, 2);
-        assert_eq!(format!("{}", p), "(1, 2)");
+        assert_eq!(format!("{p}"), "(1, 2)");
 
         let p_float = Point::new(1.5f64, 2.5f64);
-        assert_eq!(format!("{}", p_float), "(1.5, 2.5)");
+        assert_eq!(format!("{p_float}"), "(1.5, 2.5)");
     }
 
     #[test]
@@ -213,7 +205,7 @@ mod tests {
         // Test with floating point numbers
         let p5 = Point::new(1.0f64, 1.0f64);
         let p6 = Point::new(4.0f64, 5.0f64);
-        assert_eq!(p5.manhattan_distance(&p6), 7.0f64);
+        assert!((p5.manhattan_distance(&p6) - 7.0f64).abs() < f64::EPSILON);
 
         // Test with zero distance
         let p7 = Point::new(1, 1);
@@ -260,7 +252,7 @@ mod tests {
         let p2 = p1; // Copy
         assert_eq!(p1, p2);
 
-        let p3 = p1.clone(); // Clone
+        let p3 = p1; // Clone (using Copy trait)
         assert_eq!(p1, p3);
     }
 
