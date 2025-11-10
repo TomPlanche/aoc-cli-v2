@@ -2,6 +2,7 @@ use anyhow::{Context, Result};
 use chrono::Datelike;
 use std::fs;
 use std::path::PathBuf;
+use std::process::Command;
 
 use crate::templates;
 
@@ -67,6 +68,13 @@ pub fn init_project(name: &str) -> Result<()> {
 
     fs::write(utils_src_path.join("points.rs"), templates::UTILS_POINTS_RS)
         .context("Failed to write utils points.rs")?;
+
+    // Initialize git repository
+    Command::new("git")
+        .arg("init")
+        .current_dir(&project_path)
+        .output()
+        .context("Failed to initialize git repository")?;
 
     println!("Project '{name}' initialized successfully!");
     println!("\nProject structure:");
