@@ -56,7 +56,15 @@ pub fn run_analytics(file_path: &str) -> Result<()> {
             .context(format!("Failed to run {day_name}"))?;
 
         if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+
+            if !stderr.is_empty() {
+                eprintln!("Error output from {day_name}:");
+                eprintln!("{}", stderr.trim());
+            }
+
             eprintln!("Warning: {day_name} failed to run, skipping...");
+
             continue;
         }
 
