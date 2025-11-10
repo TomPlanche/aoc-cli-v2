@@ -24,6 +24,11 @@ enum Commands {
         #[arg(help = "Day number (1-25)")]
         day: u8,
     },
+    #[command(about = "Run analytics on all day crates and output timing information")]
+    Analytics {
+        #[arg(help = "Output file path", default_value = "analytics.txt")]
+        file_path: String,
+    },
 }
 
 fn main() -> Result<()> {
@@ -32,5 +37,6 @@ fn main() -> Result<()> {
     match cli.command {
         Commands::Init { name } => commands::init_project(&name),
         Commands::Add { day } => commands::add_day(day),
+        Commands::Analytics { file_path } => commands::run_analytics(&file_path),
     }
 }
