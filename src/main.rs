@@ -26,7 +26,7 @@ enum Commands {
     },
     #[command(about = "Run analytics on all day crates and output timing information")]
     Analytics {
-        #[arg(help = "Output file path", default_value = "analytics.txt")]
+        #[arg(help = "Output file path", default_value = "analytics.md")]
         file_path: String,
     },
 }
