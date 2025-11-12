@@ -27,3 +27,32 @@ impl Solution for Day{DAY} {
 fn main() {
     run_solution!(Day{DAY});
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part1() {
+        let input = "";
+
+        let day = Day{DAY};
+        let parsed_input = day.parse_input(&input);
+
+        let part1 = day.part1(&parsed_input);
+
+        assert_eq!(part1, 0);
+    }
+
+    #[test]
+    fn test_part2() {
+        let input = "";
+
+        let day = Day{DAY};
+        let parsed_input = day.parse_input(&input);
+
+        let part2 = day.part2(&parsed_input);
+
+        assert_eq!(part2, 0);
+    }
+}
