@@ -37,7 +37,7 @@ mod tests {
         let input = "";
 
         let day = Day{DAY};
-        let parsed_input = day.parse_input(&input);
+        let parsed_input = day.parse_input(input);
 
         let part1 = day.part1(&parsed_input);
 
@@ -49,7 +49,7 @@ mod tests {
         let input = "";
 
         let day = Day{DAY};
-        let parsed_input = day.parse_input(&input);
+        let parsed_input = day.parse_input(input);
 
         let part2 = day.part2(&parsed_input);
 
