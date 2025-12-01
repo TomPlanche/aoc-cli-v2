@@ -6,6 +6,14 @@ A command-line interface tool for scaffolding Advent of Code projects in Rust. D
 
 AOC CLI streamlines your Advent of Code workflow by generating consistent, well-structured Rust projects. Each project includes a shared utilities crate with common helpers for grid navigation, point mathematics, and a standardized solution trait pattern.
 
+### Why This Tool?
+
+Advent of Code challenges often require similar utilities: grid traversal, coordinate systems, and consistent input parsing. This CLI eliminates the repetitive setup by:
+- Pre-packaging proven patterns from previous years
+- Enforcing separation between parsing and solving logic
+- Providing battle-tested coordinate and direction utilities
+- Letting you focus on the puzzle, not the boilerplate
+
 ### Key Features
 
 - **Workspace Generation**: Creates cargo workspaces with shared utilities and individual day crates
@@ -20,7 +28,7 @@ AOC CLI streamlines your Advent of Code workflow by generating consistent, well-
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/aoc-cli-v2.git
+git clone https://github.com/TomPlanche/aoc-cli-v2.git
 cd aoc-cli-v2
 cargo build --release
 ```
