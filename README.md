@@ -36,7 +36,7 @@ For convenient access from anywhere:
 cp ./target/release/aoc-cli-v2 ~/.local/bin/aoc-cli
 
 # Or create an alias
-alias aoc-cli='/path/to/aoc-cli-v2/target/release/aoc-cli-v2'
+alias aoc='/path/to/aoc-cli-v2/target/release/aoc-cli-v2'
 ```
 
 ## Quick Start
