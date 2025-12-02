@@ -13,12 +13,11 @@ fn extract_year_from_name(name: &str) -> String {
         .windows(4)
         .find_map(|window| {
             let year_str: String = window.iter().collect();
-            if year_str.chars().all(|c| c.is_ascii_digit()) {
-                if let Ok(year) = year_str.parse::<u16>() {
-                    if (2015..=2030).contains(&year) {
-                        return Some(year_str);
-                    }
-                }
+            if year_str.chars().all(|c| c.is_ascii_digit())
+                && let Ok(year) = year_str.parse::<u16>()
+                && (2015..=2030).contains(&year)
+            {
+                return Some(year_str);
             }
             None
         })

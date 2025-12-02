@@ -18,6 +18,8 @@ Advent of Code challenges often require similar utilities: grid traversal, coord
 
 - **Workspace Generation**: Creates cargo workspaces with shared utilities and individual day crates
 - **Zero Boilerplate**: Pre-configured templates with parsing separation and type-safe patterns
+- **Precise Timing**: Built-in timing for individual parts or complete solutions with microsecond accuracy
+- **Easy Updates**: Update existing projects to the latest utilities with a single command
 - **Coordinate System**: Comprehensive (x, y) coordinate utilities with 8-directional movement
 - **Generic Point Types**: Flexible point implementation supporting all numeric types
 - **Solution Trait Pattern**: Structured approach separating input parsing from solving logic
@@ -117,6 +119,80 @@ cd day01
 cargo run
 ```
 
+### Timing Solutions
+
+Precisely measure performance of your solutions:
+
+```bash
+# Time both parts of day 5 (from workspace root)
+aoc-cli-v2 time 5
+
+# Time only part 1
+aoc-cli-v2 time 5 --part1
+
+# Time only part 2
+aoc-cli-v2 time 5 --part2
+
+# Run analytics on all completed days
+aoc-cli-v2 analytics
+```
+
+All timing runs use `--release` mode for accurate performance measurements. Output includes execution time in milliseconds with microsecond precision.
+
+### Updating Existing Projects
+
+Keep your utilities up to date with the latest features:
+
+```bash
+# From your workspace root
+aoc-cli-v2 update utils
+
+# Rebuild to apply changes
+cargo build --release
+```
+
+This updates all utility files (Solution trait, Direction, Point) to the latest template versions.
+
+## Commands Reference
+
+### `init <name>`
+Initialize a new AOC project workspace.
+
+```bash
+aoc-cli-v2 init aoc2025
+```
+
+### `add <day>`
+Add a new day crate (1-25) to the workspace.
+
+```bash
+aoc-cli-v2 add 1
+```
+
+### `time <day> [--part1|--part2]`
+Time a specific day's solution with release optimizations.
+
+```bash
+aoc-cli-v2 time 5          # Time both parts
+aoc-cli-v2 time 5 --part1  # Time only part 1
+aoc-cli-v2 time 5 --part2  # Time only part 2
+```
+
+### `analytics [file_path]`
+Run all day crates and generate timing table (default: `analytics.md`).
+
+```bash
+aoc-cli-v2 analytics
+aoc-cli-v2 analytics results.md
+```
+
+### `update <component>`
+Update workspace components to latest template version.
+
+```bash
+aoc-cli-v2 update utils
+```
+
 ## Project Architecture
 
 ### Template System
@@ -135,7 +211,10 @@ src/
 └── commands/
     ├── mod.rs                # Module exports
     ├── init.rs               # Workspace initialization
-    └── add.rs                # Day scaffolding
+    ├── add.rs                # Day scaffolding
+    ├── time.rs               # Precise timing for individual days
+    ├── analytics.rs          # Batch timing across all days
+    └── update.rs             # Update utilities to latest version
 ```
 
 ### Generated Project Structure
@@ -172,6 +251,12 @@ pub trait Solution {
     fn parse_input(&self, input: &str) -> Self::Input;
     fn part1(&self, input: &Self::Input) -> Self::Output;
     fn part2(&self, input: &Self::Input) -> Self::Output;
+
+    // Built-in timing methods (provided by trait)
+    fn solve(&self, input: &str);
+    fn solve_timed(&self, input: &str) -> (Duration, Duration);
+    fn solve_part1_timed(&self, input: &str) -> Duration;
+    fn solve_part2_timed(&self, input: &str) -> Duration;
 }
 ```
 
@@ -180,6 +265,7 @@ Benefits:
 - Input parsed once, used for both parts
 - Generic types for any input/output structure
 - Automatic file reading via `run_solution!` macro
+- Built-in timing with microsecond precision
 
 ### Direction Enum
 

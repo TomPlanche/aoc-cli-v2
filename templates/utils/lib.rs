@@ -38,20 +38,59 @@ pub trait Solution {
 
         (time1, time2)
     }
+
+    fn solve_part1_timed(&self, input: &str) -> std::time::Duration {
+        use std::time::Instant;
+
+        let parsed = self.parse_input(input);
+
+        let start = Instant::now();
+        let result = self.part1(&parsed);
+        let elapsed = start.elapsed();
+
+        println!("Part 1: {} ({}ms)", result, elapsed.as_secs_f64() * 1000.0);
+        println!("TIMING_PART1:{}", elapsed.as_micros());
+
+        elapsed
+    }
+
+    fn solve_part2_timed(&self, input: &str) -> std::time::Duration {
+        use std::time::Instant;
+
+        let parsed = self.parse_input(input);
+
+        let start = Instant::now();
+        let result = self.part2(&parsed);
+        let elapsed = start.elapsed();
+
+        println!("Part 2: {} ({}ms)", result, elapsed.as_secs_f64() * 1000.0);
+        println!("TIMING_PART2:{}", elapsed.as_micros());
+
+        elapsed
+    }
 }
 
 #[macro_export]
 macro_rules! run_solution {
     ($solution:expr) => {{
         let args: Vec<String> = std::env::args().collect();
-        let timing_mode = args.get(1).map_or(false, |arg| arg == "--timing");
+        let mode = args.get(1).map(String::as_str);
 
         let input = include_str!("../input.txt");
 
-        if timing_mode {
-            $solution.solve_timed(input);
-        } else {
-            $solution.solve(input);
+        match mode {
+            Some("--timing") => {
+                $solution.solve_timed(input);
+            }
+            Some("--part1") => {
+                $solution.solve_part1_timed(input);
+            }
+            Some("--part2") => {
+                $solution.solve_part2_timed(input);
+            }
+            _ => {
+                $solution.solve(input);
+            }
         }
     }};
 }
