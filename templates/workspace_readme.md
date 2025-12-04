@@ -86,6 +86,16 @@ use utils::Direction;
 
 let pos = (0, 0);
 let new_pos = pos + Direction::Right;  // (1, 0)
+
+// Iterate over all 8 directions (cardinal + diagonal)
+for dir in Direction::all() {
+    let next = pos + dir;
+}
+
+// Iterate over only the 4 cardinal directions (Up, Down, Left, Right)
+for dir in Direction::cardinal() {
+    let next = pos + dir;
+}
 ```
 
 ### Point Type

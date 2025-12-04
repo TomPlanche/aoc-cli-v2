@@ -164,4 +164,30 @@ impl Direction {
             _ => None,
         }
     }
+
+    /// Returns all 8 directions (4 cardinal + 4 diagonal).
+    #[must_use]
+    pub fn all() -> [Direction; 8] {
+        [
+            Direction::Up,
+            Direction::Down,
+            Direction::Left,
+            Direction::Right,
+            Direction::UpLeft,
+            Direction::UpRight,
+            Direction::DownLeft,
+            Direction::DownRight,
+        ]
+    }
+
+    /// Returns only the 4 cardinal directions (Up, Down, Left, Right).
+    #[must_use]
+    pub fn cardinal() -> [Direction; 4] {
+        [
+            Direction::Up,
+            Direction::Down,
+            Direction::Left,
+            Direction::Right,
+        ]
+    }
 }
