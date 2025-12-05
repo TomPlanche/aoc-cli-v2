@@ -31,8 +31,8 @@ enum Commands {
     },
     #[command(about = "Time a specific day's solution")]
     Time {
-        #[arg(help = "Day number (1-25)")]
-        day: u8,
+        #[arg(help = "Day number (1-25). Auto-detected if in a day folder.")]
+        day: Option<u8>,
         #[arg(long, help = "Time only part 1")]
         part1: bool,
         #[arg(long, help = "Time only part 2")]

@@ -127,8 +127,14 @@ Precisely measure performance of your solutions:
 # Time both parts of day 5 (from workspace root)
 aoc-cli-v2 time 5
 
+# Time from within a day folder (auto-detects day number)
+cd day05
+aoc-cli-v2 time
+
 # Time only part 1
 aoc-cli-v2 time 5 --part1
+# Or from within day folder
+cd day05 && aoc-cli-v2 time --part1
 
 # Time only part 2
 aoc-cli-v2 time 5 --part2
@@ -137,7 +143,7 @@ aoc-cli-v2 time 5 --part2
 aoc-cli-v2 analytics
 ```
 
-All timing runs use `--release` mode for accurate performance measurements. Output includes execution time in milliseconds with microsecond precision.
+The `time` command works from both the workspace root and within day folders. When run from a day folder, it automatically detects the day number. All timing runs use `--release` mode for accurate performance measurements with microsecond precision.
 
 ### Updating Existing Projects
 
@@ -169,13 +175,20 @@ Add a new day crate (1-25) to the workspace.
 aoc-cli-v2 add 1
 ```
 
-### `time <day> [--part1|--part2]`
-Time a specific day's solution with release optimizations.
+### `time [day] [--part1|--part2]`
+Time a specific day's solution with release optimizations. Day number is optional when run from within a day folder.
 
 ```bash
-aoc-cli-v2 time 5          # Time both parts
-aoc-cli-v2 time 5 --part1  # Time only part 1
-aoc-cli-v2 time 5 --part2  # Time only part 2
+# From workspace root
+aoc-cli-v2 time 5          # Time both parts of day 5
+aoc-cli-v2 time 5 --part1  # Time only part 1 of day 5
+aoc-cli-v2 time 5 --part2  # Time only part 2 of day 5
+
+# From within a day folder (auto-detects day number)
+cd day05
+aoc-cli-v2 time            # Time both parts (auto-detects day 5)
+aoc-cli-v2 time --part1    # Time only part 1
+aoc-cli-v2 time --part2    # Time only part 2
 ```
 
 ### `analytics [file_path]`
