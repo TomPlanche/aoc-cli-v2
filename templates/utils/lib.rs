@@ -22,9 +22,8 @@ pub trait Solution {
     fn solve_timed(&self, input: &str) -> (std::time::Duration, std::time::Duration) {
         use std::time::Instant;
 
-        let parsed = self.parse_input(input);
-
         let start1 = Instant::now();
+        let parsed = self.parse_input(input);
         let result1 = self.part1(&parsed);
         let time1 = start1.elapsed();
 
@@ -42,9 +41,8 @@ pub trait Solution {
     fn solve_part1_timed(&self, input: &str) -> std::time::Duration {
         use std::time::Instant;
 
-        let parsed = self.parse_input(input);
-
         let start = Instant::now();
+        let parsed = self.parse_input(input);
         let result = self.part1(&parsed);
         let elapsed = start.elapsed();
 
@@ -57,9 +55,8 @@ pub trait Solution {
     fn solve_part2_timed(&self, input: &str) -> std::time::Duration {
         use std::time::Instant;
 
-        let parsed = self.parse_input(input);
-
         let start = Instant::now();
+        let parsed = self.parse_input(input);
         let result = self.part2(&parsed);
         let elapsed = start.elapsed();
 
