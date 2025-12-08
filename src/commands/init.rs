@@ -68,6 +68,12 @@ pub fn init_project(name: &str) -> Result<()> {
     fs::write(utils_src_path.join("points.rs"), templates::UTILS_POINTS_RS)
         .context("Failed to write utils points.rs")?;
 
+    fs::write(
+        utils_src_path.join("point3d.rs"),
+        templates::UTILS_POINT3D_RS,
+    )
+    .context("Failed to write utils point3d.rs")?;
+
     // Initialize git repository
     Command::new("git")
         .arg("init")
@@ -85,6 +91,7 @@ pub fn init_project(name: &str) -> Result<()> {
     println!("      └── src/");
     println!("          ├── lib.rs");
     println!("          ├── directions.rs");
+    println!("          ├── point3d.rs");
     println!("          └── points.rs");
 
     Ok(())

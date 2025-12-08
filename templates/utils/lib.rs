@@ -1,7 +1,9 @@
 pub mod directions;
+pub mod point3d;
 pub mod points;
 
 pub use directions::*;
+pub use point3d::*;
 pub use points::*;
 
 pub trait Solution {

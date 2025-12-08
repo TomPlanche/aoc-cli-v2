@@ -10,3 +10,4 @@ pub const DAY_README: &str = include_str!("../templates/day/README.md");
 pub const UTILS_LIB_RS: &str = include_str!("../templates/utils/lib.rs");
 pub const UTILS_DIRECTIONS_RS: &str = include_str!("../templates/utils/directions.rs");
 pub const UTILS_POINTS_RS: &str = include_str!("../templates/utils/points.rs");
+pub const UTILS_POINT3D_RS: &str = include_str!("../templates/utils/point3d.rs");

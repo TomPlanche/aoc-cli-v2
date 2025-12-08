@@ -21,6 +21,7 @@ pub fn update_utils() -> Result<()> {
         ("utils/src/lib.rs", templates::UTILS_LIB_RS),
         ("utils/src/directions.rs", templates::UTILS_DIRECTIONS_RS),
         ("utils/src/points.rs", templates::UTILS_POINTS_RS),
+        ("utils/src/point3d.rs", templates::UTILS_POINT3D_RS),
     ];
 
     for (path, content) in &files {
