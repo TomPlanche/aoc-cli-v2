@@ -69,6 +69,7 @@ impl<T: Number> Point3D<T> {
 }
 
 impl Point3D<i32> {
+    #[must_use]
     pub fn distance_squared(&self, other: &Self) -> i64 {
         let dx = i64::from(self.x - other.x);
         let dy = i64::from(self.y - other.y);
@@ -78,6 +79,7 @@ impl Point3D<i32> {
 }
 
 impl Point3D<i64> {
+    #[must_use]
     pub fn distance_squared(&self, other: &Self) -> i64 {
         let dx = self.x - other.x;
         let dy = self.y - other.y;
@@ -87,6 +89,7 @@ impl Point3D<i64> {
 }
 
 impl Point3D<f64> {
+    #[must_use]
     pub fn euclidean_distance(&self, other: &Self) -> f64 {
         let dx = self.x - other.x;
         let dy = self.y - other.y;
@@ -96,6 +99,7 @@ impl Point3D<f64> {
 }
 
 impl Point3D<f32> {
+    #[must_use]
     pub fn euclidean_distance(&self, other: &Self) -> f32 {
         let dx = self.x - other.x;
         let dy = self.y - other.y;
